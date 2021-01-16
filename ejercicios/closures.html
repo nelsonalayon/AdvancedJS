@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>closures</title>
+</head>
+<body>
+
+    <a href="/ejercicios/">Go back</a>
+    <p><em>abre la consola</em></p>    
+    <script>      
+    
+    let color = "green"
+    function printColor(color) {
+        
+        console.log(color)
+
+    }
+
+    printColor(color)
+
+    function makeColorPrinter(color) {
+        let colorMessage = `the color is ${color}`
+        return function() {
+            console.log(colorMessage)
+        }
+    }
+
+    let greenColorPrinter = makeColorPrinter("blue")
+    console.log(greenColorPrinter())
+
+    
+  function love (whoIs ) {
+    let send = `i such a love ${whoIs}`
+    return function() {
+        console.log(send)
+    }
+  }
+
+  let whoIsLucky = love("Angie")
+
+  console.log(whoIsLucky())
+
+  function count(num){
+      let number = `the magic number is ${parseInt(num)}`
+      return {
+          currentNum: function() {
+              return number
+          },
+          sum: function() {
+              number = number + 1;
+          },
+          substract: function() {
+              number = number - 1;
+          }
+
+      }
+  }
+
+  let myNumber = count(41)
+  myNumber.sum()
+  myNumber.sum()
+  myNumber.sum()
+
+  console.log(myNumber.currentNum())
+
+  myNumber.substract()
+  myNumber.substract()
+  console.log(myNumber.currentNum())
+
+
+
+</script>
+    
+</body>
+</html>
