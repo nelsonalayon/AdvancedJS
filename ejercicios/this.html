@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>who is this</title>
+</head>
+<body>
+    <a href="/ejercicios/">Go back</a>
+    
+    <h2>this se puede referir a window.object, cuando this se llama desde afuera</h2>
+    <h2>this tambien se refiere a window.object cuando this se llama directamente desde una funcion</h2>
+    <h2>si this se llama en strict mode dentro de una función es undefined</h2>
+    <h2>this se refiere al objeto que esta ejecutando actualmente un pedazo de codigo</h2>
+    <h2>Y en una clase this se refiere a la instancia de la clase, no sobre el objeto</h2>
+    <p>abre la consola</p>
+
+    
+
+    <script>
+        // this como referencia al objeto que esta ejecutando la funcion
+        const person = {
+            name: "juan",
+            saludar: function() {
+                console.log(`hello, my name is ${this.name}`)
+            }
+        }
+
+        person.saludar()
+
+        // this como referencia al objeto instanciado, no a la clase
+
+        function person2(name) {
+            this.name = name
+        }
+
+        person2.prototype.saludes = function() {
+            return(`hello again, mi class name is ${this.name}`)
+        }
+
+        const juan = new person2("nelsin")
+
+        console.log(juan.saludes())
+
+
+            
+    </script>
+    
+</body>
+</html>

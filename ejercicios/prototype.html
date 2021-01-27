@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prototype</title>
+</head>
+<body>
+    <h1>prototype</h1>
+    <a href="/ejercicios/">Go back</a>
+    <p><em>abre la consola</em></p> 
+
+    <script>
+        // empecemos con un simple objeto
+
+        const superman = {
+            name: "superman"
+        }
+
+        superman.saludar = function () {
+            console.log(`hello ${this.name}`)
+        }
+
+        superman.saludar()
+
+        const batman = {
+            name: "batman"
+        }
+
+        batman.saludad = function () {
+            console.log(`hello ${this.name}`)
+        }
+
+        batman.saludad()
+
+        // esto es muy ineficiente, porque son dos objetos iguales que debemos repetir, creemos un constructor
+
+       function superHero(name) {
+           const superHero = {
+                name:name
+           }
+
+           superHero.greetings = function() {
+               console.log(`hello darling, my supername is ${this.name}`)
+           }
+
+           return superHero
+       }
+
+       const captain = superHero("Captain America")
+
+       const wonder = superHero("Wonder Woman")
+
+       captain.greetings()
+       wonder.greetings()
+
+    //    todavia hay ineficiencia
+
+    const heroMethods = {
+        saludar: function () {
+            console.log(`hello again, my name is ${this.name}`)
+        }
+    }
+
+    function superHero2(name) {
+           const superHero = {
+                name:name
+           }
+           superHero.greetings = heroMethods.saludar
+           return superHero
+       }
+
+       const captain2 = superHero("Captain America")
+
+       const wonder2 = superHero("Wonder Woman")
+
+       captain2.greetings()
+       wonder2.greetings()
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica de promesas y funciones asíncronas</title>
+</head>
+<body>
+    <h1>prototype</h1>
+    <a href="/ejercicios/">Go back</a>
+    <p><em>abre la consola</em></p> 
+
+    <div class = "my-info"></div>
+    <form action="">
+        <label for="character-name"> Put a number</label>
+        <input type="text" class="character-name">
+        <button type="button" class="action" onclick="getSim()">go to character</button>
+    </form>
+    
+
+    <script>   
+     const url = "https://rickandmortyapi.com/api/character"
+
+     function enviarAlerta(){
+      let dato = document.getElementsByClassName('character-name')[0].value;
+        return(dato)
+    }
+
+    function getSim (misim) {
+        const characterList = document.getElementsByClassName('my-info')        
+        characterList.innerHTML = "" 
+        // const friends = getCharacters()      
+           
+        characterList.innerHTML = `
+            <img src= "https://prod.media.libero.pe/660x392/libero/imagen/2020/04/11/noticia-1586614749-angie-jibaja-estado.png" style = "margin: 20px"/>
+            <h5>hello</h5>
+            <p>Released on <em>juepucha</em></p>`  
+        
+    }
+
+     async function getCharacters () {
+        const response = await fetch(url)
+        const data = response.json()
+        return data
+     }
+
+     console.log(getCharacters())
+    </script>
+    
+</body>
+
+
+</html>

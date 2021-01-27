@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call apply bind</title>
+</head>
+<body>
+    <a href="/ejercicios/">Go back</a>
+
+
+    <p><em>abre la consola</em></p>
+
+    <ul>
+        <li><button class="call-to-action"> aprender</button></li>
+        <li><button class="call-to-action"> aprender mas</button></li>
+        <li><button class="call-to-action"> nunca parar de aprender</button></li>
+    </ul>
+   
+
+    <script>
+
+        // como usar call
+
+        function miEdad  ( ) {
+            return `my age is ${this.edad} `
+        }
+
+       function saludar() {
+           return `hello, my name is ${this.name} and my hobbie is ${this.hobbie}`
+       }
+
+       const nelsin = {
+           name: "Nelson Alayon",
+           hobbie: "felt in love",
+           edad: new Date(1979,5,12)
+       }
+
+       const angie = {
+           name: "angie",
+           hobbie: "sleep",
+           age: 23
+       }
+       
+       console.log(saludar.call(nelsin))
+       console.log(miEdad.call(nelsin))
+
+       function caminar(metros, direccion) { 
+        console.log(`${this.name} camina ${metros} metros hacia el ${direccion}`)
+       }
+
+       caminar.call(nelsin, "50", "sur")
+
+    //    apply funciona igual que call, pero los parametros se pasan como un array y no con comas como call
+       caminar.apply(nelsin, [320, "noreste"])
+
+    //    Bind es distinto, no ejecuta la función directamente sino que tenemos que guardarla en una variable para luego invocarla En este caso guardamos el archivo bind en angiesaluda
+
+       const angieSaluda = saludar.bind(angie)
+       console.log(angieSaluda())
+
+    //    si la función tiene parametros, los pasamos al llamar la variable donde tenemos la función bindeada       
+
+       const angieCorre = caminar.bind(angie)
+       angieCorre(100, "sur")
+
+    //    los parametros de caminar los podemos pasar al llamar la variable que tiene el archivo bindeado, como tambien lo podemos pasar como argumento al bindear la funcion... o tambien podemos pasar unos argumentos al bindear la funcion y otros argumentos al llamar la variable con el archivo bindeado, que locura, Esta tecnica se llama currying
+
+       const angieCamino = caminar.bind(angie, 1000, "este")
+       angieCamino()
+
+       const angieCamina = caminar.bind(angie, 450)
+       angieCamina("oeste")
+
+       const buttons = document.getElementsByClassName("call-to-action")
+
+    //    la siguiente funcion no sirve porque buttons no es un array:
+
+    //    buttons.array.forEach(element => {
+    //        return(alert("hola gentuza"))
+    //    });
+
+    // para que funcione debemos convertir el node list en array, y cambiar el this al nodelist
+
+    Array.prototype.forEach.call(buttons, element => {
+        element.onclick = () => alert("hola marranos")
+    });
+
+
+    </script>
+    
+</body>
+</html>
