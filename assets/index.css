@@ -36,3 +36,8 @@
   .movie {
     width: 100%;
   }
+
+  .comments {
+    background-color: tomato;
+    height: 300vh;
+  }

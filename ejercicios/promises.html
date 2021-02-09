@@ -10,7 +10,14 @@
       <li><button id="sequence">Get Top Movies in Sequence</button></li>
       <li><button id="parallel">Get Top Movies in Parallel</button></li>
       <li><button id="fastest">Get Fastest Top Movie</button></li>
+      <li><button id="one-movie">Get one movie</button></li>
     </ul>
+
+    <form action="">
+      <label for="character-name"> Put a number</label>
+      <input type="text" class="character-name" id="my-number">
+      <button type="button" class="action" id= "action">go to character</button>
+    </form>
 
     <ul id="movies" style="display: flex; flex-wrap: wrap;"></ul>
 
@@ -24,6 +31,11 @@
 
       // The Movie Database API: https://developers.themoviedb.org/3/getting-started/introduction
       const apiKey = 'b89fc45c2067cbd33560270639722eae';
+
+      function getNumber(){        
+      let dato = document.getElementById('my-number').value;
+        return(dato)
+    }
 
       async function getMovie(id) {
         const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
@@ -70,6 +82,12 @@
         });
       }
 
+      function renderMovie(movies) {        
+        const movieList = document.getElementById('movies');
+        movieList.innerHTML = `<div><img src="https://image.tmdb.org/t/p/w342${movies.poster_path}" style = "margin: 20px"/><h5>${movies.title}</h5><p>Released on <em>${movies.release_date}</em></p> </div>`
+          console.log(`this is movies: ${movies}`)
+              }
+
       async function getTopMoviesInSequence() {
         const ids = await getTopMoviesIds();
         const movies = [];
@@ -113,6 +131,25 @@
         const movie = await getFastestTopMovie();
         renderMovies([movie]);
       };
+
+      document.getElementById('one-movie').onclick = async function() {
+        const myMovie = await getMovie(2)
+        console.log(myMovie)
+        renderMovie(myMovie);
+      }
+
+      document.getElementById('action').onclick = async function() {
+        const myNumber = getNumber()
+        const myOnlyMovie = await getMovie(myNumber)
+        try {
+            renderMovie(myOnlyMovie);
+            console.log(`this is my number: ${myNumber}`)
+        } catch(error) {
+          console.log(`ups, i dont fount the movie ${myNumber}. ${error.message}`)
+        }
+        
+        
+      }
     </script>
   </body>
 </html>

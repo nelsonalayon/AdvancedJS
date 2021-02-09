@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generadores</title>
+</head>
+<body>
+
+    <a href="/ejercicios/">Go back</a>
+    <p><em>abre la consola</em></p>
+
+    <h1>Generadores</h1>
+    <p>Los generadores son funciones especiales que podemos parar a la mitad, para luego poder continuar mas adelante. Los generadores recuerdan su contexto. </p>
+    <p>Para hacer un generador ponemos un asterisco a la palabra reservada function </p>
+    <code>function*</code>
+    <p>Para poder usar un generador tenemos que asignarla a una variable, directamente no se puede invocar</p>
+    <p>como el generador no camina solo, va a avanzar cuando le digamos a la funcion next</p>
+    <code>gen = simpleGenerator</code>
+    <code>gen.next</code>
+    <p>siempre que avanza el generador nos devuelve un objeto cuyo primer valor es un valor cualquiera que envie la funcion, y como segundo valor un booleano indicando si el generador ya ejecuto toda la funcion o si ha quedado detenida</p>
+    <p>si queremos que un generador se detenga en una posiciòn específica, ponemos la palabra reservada yield</p>
+
+    <code>yield</code>
+
+    <p>los yield pueden retornar valores</p>
+    <code>yield 1 <br> yield 2 <br> yield 3</code>
+
+    <h1>Generadores infinitos</h1>
+
+    <p>Podemos crear generadores que nunca terminen usando un ciclo while que siempre de true.</p>
+    <p>¿Cómo hacer para que un ciclo infinito no bloquee la computadora? usando yield, el cual frenara el ciclo hasta que llamemos nuevamente a la función con next</p>
+
+    
+    <script>
+        function* simpleGenerator() {
+            console.log("generator start");
+            yield 1
+            yield 2
+            yield 3
+            console.log("generator-end")
+
+        }
+        const gen = simpleGenerator()
+
+        // generador infinito
+        function* idMaker() {
+            let id = 1;
+            while(true) {
+                yield id
+                id++
+                return id
+            }
+            
+        }
+
+        const makemake = idMaker()
+
+        // Generador infinito con reset 
+
+        function* idMakerWithReset() {
+            let id = 1;
+            let reset
+            while(true) {
+                reset = yield id
+
+                if(reset) {
+                 id = 1
+                } else {
+                    id++
+                }
+               
+            }
+            
+        }
+
+        const genWithRes = idMakerWithReset()
+
+        // generador fibonaccy
+
+        function* fibonacci() {
+            let a = 1;
+            let b = 1;
+            while(true) {
+                const nextNumber = a + b;
+                a = b
+                b = nextNumber;
+                yield nextNumber
+            }
+        }
+
+        const fibonaccigen = fibonacci()
+
+
+
+    </script>
+</body>
+</html>
